@@ -2,7 +2,7 @@ package product;
 
 import java.util.Date;
 
-public class LiveStream {
+public class LiveStream extends Product{
     private Date startDate;
     private Promotion promotion;
 

@@ -1,8 +1,10 @@
 package simulation;
 
 import product.Product;
+import user.Distributor;
 import user.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Simulator {
@@ -20,7 +22,18 @@ public class Simulator {
     }
 
     public void run() {
+        Distributor distributor = new Distributor();
+        Thread thread = new Thread(distributor);
+        thread.start();
 
+        while(Boolean.TRUE) {
+            System.out.println(products.size());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void stop() {
@@ -32,7 +45,7 @@ public class Simulator {
     }
 
     public void addProduct(Product product) {
-
+        products.add(product);
     }
 
     public void removeUser(User user) {
@@ -48,5 +61,19 @@ public class Simulator {
     }
 
     private Simulator() {
+        users = new ArrayList<User>();
+        products = new ArrayList<Product>();
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public double getProfitFromSystem() {
+        return profitFromSystem;
     }
 }
