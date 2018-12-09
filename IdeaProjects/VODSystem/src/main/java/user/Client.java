@@ -1,9 +1,11 @@
 package user;
 
 import product.Product;
+import simulation.Simulator;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class Client extends User {
     private String creditCardNumber;
@@ -12,7 +14,13 @@ public class Client extends User {
     private List<Product> boughtProducts;
 
     public void buyProduct() {
+        Product product = Simulator.getInstance().getProducts().get
+                (new Random().nextInt() % Simulator.getInstance().getProducts().size());
 
+        if(!boughtProducts.contains(product)) {
+            boughtProducts.add(product);
+        }
+       // Simulator.getInstance().getUsers().get(Simulator.getInstance().getUsers().indexOf())
     }
 
     public void watch() {

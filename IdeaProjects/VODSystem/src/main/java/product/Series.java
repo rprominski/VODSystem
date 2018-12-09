@@ -24,4 +24,12 @@ public class Series extends Product {
     public void setEpisodes(ArrayList<Episode> episodes) {
         Episodes = episodes;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "Series{" +
+                "season=" + season +
+                ", Episodes=" + Episodes +
+                '}';
+    }
 }

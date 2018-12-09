@@ -95,4 +95,20 @@ public abstract class Product {
     public void setViews(int views) {
         this.views = views;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "photo=" + photo +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", productionDate=" + productionDate +
+                ", durationInMinutes=" + durationInMinutes +
+                ", distributorName='" + distributorName + '\'' +
+                ", CountriesOfProduction=" + CountriesOfProduction +
+                ", rate=" + rate +
+                ", price=" + price +
+                ", views=" + views +
+                '}';
+    }
 }

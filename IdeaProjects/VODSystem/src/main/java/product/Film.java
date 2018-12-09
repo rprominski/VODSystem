@@ -31,4 +31,13 @@ public class Film extends WatchableObject {
     public void setPromotion(Promotion promotion) {
         this.promotion = promotion;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "Film{" +
+                "trailers=" + trailers +
+                ", expiryDate=" + expiryDate +
+                ", promotion=" + promotion +
+                '}';
+    }
 }

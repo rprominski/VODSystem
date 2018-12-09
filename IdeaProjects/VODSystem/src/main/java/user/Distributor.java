@@ -23,11 +23,11 @@ public class Distributor extends User implements Runnable{
         for(int j = 0; j < Simulator.getInstance().getProducts().size()/100 + 1; j++) {
             Product product;
             Random random = new Random();
-            int i = random.nextInt();
-
+            int i = Math.abs(random.nextInt());
+            System.out.println(i % 3);
             if (i % 3 == 0) {
                 product = new Film();
-            }
+            } else
             if (i % 3 == 1) {
                 product = new Series();
             } else {

@@ -21,15 +21,18 @@ public class Simulator {
 
     }
 
-    public void run() {
+    void run() {
         Distributor distributor = new Distributor();
         Thread thread = new Thread(distributor);
         thread.start();
 
         while(Boolean.TRUE) {
             System.out.println(products.size());
+            for(Product product : getProducts()) {
+                System.out.println(product);
+            }
             try {
-                Thread.sleep(1000);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -61,8 +64,8 @@ public class Simulator {
     }
 
     private Simulator() {
-        users = new ArrayList<User>();
-        products = new ArrayList<Product>();
+        users = new ArrayList<>();
+        products = new ArrayList<>();
     }
 
     public List<User> getUsers() {

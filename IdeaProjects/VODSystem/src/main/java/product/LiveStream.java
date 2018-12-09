@@ -21,4 +21,12 @@ public class LiveStream extends Product{
     public void setPromotion(Promotion promotion) {
         this.promotion = promotion;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "LiveStream{" +
+                "startDate=" + startDate +
+                ", promotion=" + promotion +
+                '}';
+    }
 }
