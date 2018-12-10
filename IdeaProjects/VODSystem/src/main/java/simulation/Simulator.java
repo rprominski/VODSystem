@@ -26,7 +26,7 @@ public class Simulator {
 
     }
 
-    void run() {
+    public void run() {
         PodamFactory podamFactory = new PodamFactoryImpl();
         addUser(podamFactory.manufacturePojo(Distributor.class));
         while(Boolean.TRUE) {
