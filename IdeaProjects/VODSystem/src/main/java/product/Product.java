@@ -1,5 +1,7 @@
 package product;
 
+import user.Distributor;
+
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,11 +12,12 @@ public abstract class Product {
     private String description;
     private Date productionDate;
     private int durationInMinutes;
-    private String distributorName;
+    private Distributor distributor;
     private ArrayList<String> CountriesOfProduction;
     private int rate;
     private double price;
     private int views;
+    private int id;
 
     public BufferedImage getPhoto() {
         return photo;
@@ -56,12 +59,12 @@ public abstract class Product {
         this.durationInMinutes = durationInMinutes;
     }
 
-    public String getDistributorName() {
-        return distributorName;
+    public Distributor getDistributor() {
+        return distributor;
     }
 
-    public void setDistributorName(String distributorName) {
-        this.distributorName = distributorName;
+    public void setDistributor(Distributor distributorName) {
+        this.distributor = distributorName;
     }
 
     public ArrayList<String> getCountriesOfProduction() {
@@ -96,6 +99,18 @@ public abstract class Product {
         this.views = views;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void addView() {
+        views++;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -104,11 +119,26 @@ public abstract class Product {
                 ", description='" + description + '\'' +
                 ", productionDate=" + productionDate +
                 ", durationInMinutes=" + durationInMinutes +
-                ", distributorName='" + distributorName + '\'' +
+                ", distributorName='" + distributor + '\'' +
                 ", CountriesOfProduction=" + CountriesOfProduction +
                 ", rate=" + rate +
                 ", price=" + price +
                 ", views=" + views +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        return name.equals(product.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
     }
 }
