@@ -3,6 +3,7 @@ package user;
 public abstract class User {
     private String name;
     private String email;
+    private Thread thread;
 
     public abstract void work();
 
@@ -20,5 +21,12 @@ public abstract class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void start() {
+        if(thread == null) {
+            thread = new Thread((Runnable) this);
+            thread.start();
+        }
     }
 }
