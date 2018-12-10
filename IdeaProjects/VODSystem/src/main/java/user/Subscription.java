@@ -3,12 +3,12 @@ package user;
 public class Subscription {
     private double price;
     private int numberOfDevices;
-    private int rozdzielczosc;
+    private int resolution;
 
-    private Subscription(double price, int numberOfDevices, int rozdzielczosc) {
+    private Subscription(double price, int numberOfDevices, int resolution) {
         this.price = price;
         this.numberOfDevices = numberOfDevices;
-        this.rozdzielczosc = rozdzielczosc;
+        this.resolution = resolution;
     }
 
     public static final Subscription BASIC = new Subscription(1,2,3);
