@@ -6,8 +6,8 @@ import product.LiveStream;
 import product.Product;
 import product.Series;
 import simulation.Simulator;
-
-import javax.jws.soap.SOAPBinding;
+import uk.co.jemos.podam.api.PodamFactory;
+import uk.co.jemos.podam.api.PodamFactoryImpl;
 import java.util.Random;
 
 public class Distributor extends User implements Runnable{
@@ -24,28 +24,28 @@ public class Distributor extends User implements Runnable{
             Product product;
             Random random = new Random();
             int i = Math.abs(random.nextInt());
-            System.out.println(i % 3);
+            PodamFactory factory = new PodamFactoryImpl();
+
             if (i % 3 == 0) {
-                product = new Film();
+                product = factory.manufacturePojo(Film.class);
             } else
             if (i % 3 == 1) {
-                product = new Series();
+                product = factory.manufacturePojo(Series.class);
             } else {
-                product = new LiveStream();
+                product = factory.manufacturePojo(LiveStream.class);
             }
+            product.setDistributor(this);
             Simulator.getInstance().addProduct(product);
         }
     }
 
     private void negotiateContract() {
-        Random random = new Random();
-
-        if(random.nextInt()%100 == 0) {
+        if(new Random().nextInt()%100 == 0) {
             contract = new Contract();
         }
     }
 
-    public void calculateProfit(Product product) {
+    public void calculateProfit(Product product, Subscription subscription) {
 
     }
 
@@ -84,4 +84,5 @@ public class Distributor extends User implements Runnable{
     public void run() {
         work();
     }
+
 }
