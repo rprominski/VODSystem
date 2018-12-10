@@ -1,17 +1,22 @@
 package simulation;
 
 import product.Product;
+import timeController.TimeController;
+import uk.co.jemos.podam.api.PodamFactory;
+import uk.co.jemos.podam.api.PodamFactoryImpl;
+import user.Client;
 import user.Distributor;
 import user.User;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Simulator {
     private static Simulator ourInstance = new Simulator();
-    private List<User> users;
-    private List<Product> products;
+    private Map<String,User> users;
+    private Map<Integer,Product> products;
     private double profitFromSystem;
+    private volatile int maxProductId;
+    private volatile int maxUserId;
 
     public void saveSimulation(String path) {
 
@@ -22,21 +27,21 @@ public class Simulator {
     }
 
     void run() {
-        Distributor distributor = new Distributor();
-        Thread thread = new Thread(distributor);
-        thread.start();
-
+        PodamFactory podamFactory = new PodamFactoryImpl();
+        addUser(podamFactory.manufacturePojo(Distributor.class));
         while(Boolean.TRUE) {
-            System.out.println(products.size());
-            for(Product product : getProducts()) {
-                System.out.println(product);
+            for (int i = 0; i < products.size() / 10 + 1; i++) {
+                addUser(podamFactory.manufacturePojo(Client.class));
             }
             try {
-                Thread.sleep(5000);
+                Thread.sleep(TimeController.getInstance().getDayTime());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            System.out.printf("Usery %d\n",users.size());
+            System.out.printf("Produkty %d\n",products.size());
         }
+
     }
 
     public void stop() {
@@ -44,11 +49,18 @@ public class Simulator {
     }
 
     public void addUser(User user) {
+        if(users.containsKey(user.getName())) {
+            return;
+        }
+        users.put(user.getName(),user);
 
+        user.start();
     }
 
     public void addProduct(Product product) {
-        products.add(product);
+        product.setId(maxProductId);
+        products.put(maxProductId,product);
+        maxProductId++;
     }
 
     public void removeUser(User user) {
@@ -64,19 +76,21 @@ public class Simulator {
     }
 
     private Simulator() {
-        users = new ArrayList<>();
-        products = new ArrayList<>();
+        maxProductId = 0;
+        users = new HashMap<>();
+        products = new HashMap<>();
     }
 
-    public List<User> getUsers() {
+    public Map<String,User> getUsers() {
         return users;
     }
 
-    public List<Product> getProducts() {
+    public Map<Integer,Product> getProducts() {
         return products;
     }
 
     public double getProfitFromSystem() {
         return profitFromSystem;
     }
+
 }
