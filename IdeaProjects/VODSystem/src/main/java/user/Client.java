@@ -1,34 +1,61 @@
 package user;
 
 import product.Product;
+import product.transactionController.TransactionController;
 import simulation.Simulator;
+import uk.co.jemos.podam.common.PodamCollection;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
-public class Client extends User {
+public class Client extends User implements Runnable{
     private String creditCardNumber;
     private Subscription subscription;
     private Date dateOfBirth;
-    private List<Product> boughtProducts;
+    @PodamCollection(nbrElements = 0)
+    private Set<Integer> boughtProductsId;
 
     public void buyProduct() {
-        Product product = Simulator.getInstance().getProducts().get
-                (new Random().nextInt() % Simulator.getInstance().getProducts().size());
-
-        if(!boughtProducts.contains(product)) {
-            boughtProducts.add(product);
+        Random random = new Random();
+        if(Math.abs(random.nextInt()) % 5 != 0 && boughtProductsId.size() != 0 ||
+                Simulator.getInstance().getProducts().size() == 0) {
+            return;
         }
-       // Simulator.getInstance().getUsers().get(Simulator.getInstance().getUsers().indexOf())
+        int id = Math.abs(random.nextInt()) % Simulator.getInstance().getProducts().size();
+
+        if(boughtProductsId.contains(id)) {
+            return;
+        }
+        TransactionController transactionController = new TransactionController();
+        transactionController.performTranscation(this, id);
     }
 
     public void watch() {
+        Random random = new Random();
 
+        if(Math.abs(random.nextInt()) % 2 == 0 && boughtProductsId.size() > 0) {
+            int which = Math.abs(random.nextInt()) % boughtProductsId.size();
+            for(Integer i : boughtProductsId) {
+                if(which == 0) {
+                    Simulator.getInstance().getProducts().get(i).addView();
+                    return;
+                }
+                else {
+                    which--;
+                }
+            }
+        }
     }
 
     public void work() {
-
+        while(Boolean.TRUE) {
+            buyProduct();
+            watch();
+            try {
+                Thread.sleep(Math.abs(new Random().nextInt()%1000) + 1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public String getCreditCardNumber() {
@@ -55,11 +82,27 @@ public class Client extends User {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public List<Product> getBoughtProducts() {
-        return boughtProducts;
+    public Set<Integer> getBoughtProductsId() {
+        return boughtProductsId;
     }
 
-    public void setBoughtProducts(List<Product> boughtProducts) {
-        this.boughtProducts = boughtProducts;
+    public void setBoughtProductsId(Set<Integer> boughtProductsId) {
+        this.boughtProductsId = boughtProductsId;
+    }
+
+    public Client(String creditCardNumber, Subscription subscription, Date dateOfBirth, Set<Integer> boughtProductsId) {
+        this.creditCardNumber = creditCardNumber;
+        this.subscription = subscription;
+        this.dateOfBirth = dateOfBirth;
+        this.boughtProductsId = boughtProductsId;
+    }
+
+   // public Client() {
+   //     boughtProductsId = new HashSet<>();
+   // }
+
+    @Override
+    public void run() {
+        work();
     }
 }
