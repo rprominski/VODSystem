@@ -1,6 +1,7 @@
 package simulation;
 
 import product.Product;
+import sun.awt.windows.ThemeReader;
 import timeController.TimeController;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
@@ -10,7 +11,7 @@ import user.User;
 
 import java.util.*;
 
-public class Simulator {
+public class Simulator extends Thread{
     private static Simulator ourInstance = new Simulator();
     private Map<String,User> users;
     private Map<Integer,Product> products;
@@ -38,14 +39,7 @@ public class Simulator {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.printf("Usery %d\n",users.size());
-            System.out.printf("Produkty %d\n",products.size());
         }
-
-    }
-
-    public void stop() {
-
     }
 
     public void addUser(User user) {

@@ -1,14 +1,26 @@
 package gui;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.apache.log4j.BasicConfigurator;
-import product.LiveStream;
 import simulation.Simulator;
 
-public class ControlPanel {
+public class ControlPanel extends Application{
 
     public static void main(String args[]) {
         BasicConfigurator.configure();
-        Simulator.getInstance().run();
-        LiveStream liveStream = new LiveStream();
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Simulator.getInstance().start();
+        Parent root = FXMLLoader.load(getClass().getResource("/controlPanel.fxml"));
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+
     }
 }
