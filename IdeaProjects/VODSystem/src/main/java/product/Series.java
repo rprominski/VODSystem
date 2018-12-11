@@ -27,9 +27,8 @@ public class Series extends Product {
 
     @Override
     public String toString() {
-        return super.toString() + "Series{" +
-                "season=" + season +
-                ", Episodes=" + Episodes +
-                '}';
+        return super.toString() + "season: " +  season + '\n' +
+                ", Episodes=" + Episodes + '\n';
+
     }
 }

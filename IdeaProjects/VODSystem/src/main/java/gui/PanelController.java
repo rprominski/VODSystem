@@ -2,10 +2,12 @@ package gui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import product.Product;
 import simulation.Simulator;
@@ -20,9 +22,7 @@ public class PanelController implements Initializable {
     @FXML
     private LineChart chart;
     @FXML
-    private TextField filmInfo;
-    @FXML
-    private TableView statistics;
+    private TextArea filmInfo;
     @FXML
     private MenuBar menu;
     @FXML
@@ -45,6 +45,19 @@ public class PanelController implements Initializable {
                 return new ProductListCell();
             }
         });
+        productList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                showProductInfo(productList.getSelectionModel().getSelectedItem());
+            }
+        });
+
+
+        filmInfo.setEditable(false);
         refreshAll();
+    }
+
+    public void showProductInfo(Product product) {
+        filmInfo.setText(product.toString());
     }
 }

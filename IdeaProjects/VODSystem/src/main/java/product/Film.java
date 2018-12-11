@@ -34,10 +34,8 @@ public class Film extends WatchableObject {
 
     @Override
     public String toString() {
-        return super.toString() + "Film{" +
-                "trailers=" + trailers +
-                ", expiryDate=" + expiryDate +
-                ", promotion=" + promotion +
-                '}';
+        return super.toString() + "trailers: " + trailers + '\n' +
+                "expiryDate: " + expiryDate + '\n' +
+                "promotion: " + promotion + '\n';
     }
 }

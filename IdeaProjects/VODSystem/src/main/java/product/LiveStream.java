@@ -24,9 +24,8 @@ public class LiveStream extends Product{
 
     @Override
     public String toString() {
-        return super.toString() + "LiveStream{" +
-                "startDate=" + startDate +
-                ", promotion=" + promotion +
-                '}';
+        return super.toString() + "startDate: " + startDate + '\n' +
+                "promotion=" + promotion + '\n';
+
     }
 }

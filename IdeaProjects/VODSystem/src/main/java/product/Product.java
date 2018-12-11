@@ -113,18 +113,15 @@ public abstract class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "photo=" + photo +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", productionDate=" + productionDate +
-                ", durationInMinutes=" + durationInMinutes +
-                ", distributorName='" + distributor + '\'' +
-                ", CountriesOfProduction=" + CountriesOfProduction +
-                ", rate=" + rate +
-                ", price=" + price +
-                ", views=" + views +
-                '}';
+        return  "Name: " + name + '\n' +
+                "description: " + description + '\n' +
+                "productionDate: " + productionDate + '\n' +
+                "durationInMinutes: " + durationInMinutes + '\n' +
+                "distributorName: " + distributor + '\n' +
+                "CountriesOfProduction: " + CountriesOfProduction + '\n' +
+                "rate: " + rate + '\n' +
+                "price: " + price + '\n' +
+                "views: " + views + '\n';
     }
 
     @Override
