@@ -86,5 +86,4 @@ public class Simulator extends Thread{
     public double getProfitFromSystem() {
         return profitFromSystem;
     }
-
 }

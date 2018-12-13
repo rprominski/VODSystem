@@ -14,7 +14,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PanelController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PanelController">
    <children>
       <MenuBar fx:id="menu" layoutX="96.0" layoutY="35.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -35,8 +35,8 @@
           </Menu>
         </menus>
       </MenuBar>
-      <ListView fx:id="productList" layoutX="14.0" layoutY="79.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="25.0" />
-      <LineChart fx:id="chart" layoutX="193.0" layoutY="200.0" prefHeight="200.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0">
+      <ListView fx:id="productList" layoutX="14.0" layoutY="79.0" prefHeight="559.0" prefWidth="214.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="644.0" AnchorPane.topAnchor="25.0" />
+      <LineChart fx:id="chart" layoutX="214.0" layoutY="206.0" prefHeight="379.0" prefWidth="643.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="214.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="206.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -44,6 +44,6 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <TextArea fx:id="filmInfo" layoutX="200.0" layoutY="13.0" prefHeight="169.0" prefWidth="400.0" AnchorPane.bottomAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
+      <TextArea fx:id="filmInfo" layoutX="214.0" layoutY="25.0" prefHeight="181.0" prefWidth="377.0" AnchorPane.bottomAnchor="378.0" AnchorPane.rightAnchor="267.0" AnchorPane.topAnchor="25.0" />
    </children>
 </AnchorPane>

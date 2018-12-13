@@ -1,10 +1,17 @@
 package product;
 
+import javafx.util.Pair;
+import timeController.TimeController;
+import uk.co.jemos.podam.common.PodamExclude;
+import uk.co.jemos.podam.common.PodamIntValue;
 import user.Distributor;
 
 import java.awt.image.BufferedImage;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public abstract class Product {
     private BufferedImage photo;
@@ -12,11 +19,16 @@ public abstract class Product {
     private String description;
     private Date productionDate;
     private int durationInMinutes;
+    @PodamExclude
     private Distributor distributor;
     private ArrayList<String> CountriesOfProduction;
     private int rate;
     private double price;
-    private int views;
+    @PodamIntValue(numValue = "0")
+    private int viewsInDay;
+    @PodamExclude
+    private CircularVector<Pair<String, Integer>> views;
+    @PodamExclude
     private int id;
 
     public BufferedImage getPhoto() {
@@ -91,12 +103,12 @@ public abstract class Product {
         this.price = price;
     }
 
-    public int getViews() {
-        return views;
+    public int getViewsInDay() {
+        return viewsInDay;
     }
 
-    public void setViews(int views) {
-        this.views = views;
+    public void setViewsInDay(int viewsInDay) {
+        this.viewsInDay = viewsInDay;
     }
 
     public int getId() {
@@ -107,8 +119,19 @@ public abstract class Product {
         this.id = id;
     }
 
-    public void addView() {
-        views++;
+    public synchronized void addView() {
+        viewsInDay++;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+        updateViews(new Pair<String,Integer>(TimeController.getInstance().formatDate(
+                TimeController.getInstance().getRawSimulationDate()),viewsInDay));
+    }
+
+    public List<Pair<String, Integer>> getViews() {
+        return views;
+    }
+
+    public void setViews(CircularVector<Pair<String, Integer>> views) {
+        this.views = views;
     }
 
     @Override
@@ -121,7 +144,7 @@ public abstract class Product {
                 "CountriesOfProduction: " + CountriesOfProduction + '\n' +
                 "rate: " + rate + '\n' +
                 "price: " + price + '\n' +
-                "views: " + views + '\n';
+                "viewsInDay: " + viewsInDay + '\n';
     }
 
     @Override
@@ -137,5 +160,29 @@ public abstract class Product {
     @Override
     public int hashCode() {
         return name.hashCode();
+    }
+
+    public Product() {
+        views = new CircularVector<>(30);
+        views.add(new Pair<String, Integer>(
+                TimeController.getInstance().formatDate(TimeController.getInstance().getRawSimulationDate()),
+                0));
+    }
+
+    public synchronized void updateViews(Pair<String,Integer> view) {
+        try {
+            if (views.get(views.size() - 1).getKey().equals(view.getKey())) {
+                Pair<String, Integer> p = new Pair<String, Integer>(views.get(views.size() - 1).getKey(), views.get(views.size() - 1).getValue() + 1);
+                views.set(views.size() - 1, p);
+            } else {
+                Pair<String, Integer> p = views.get(views.size() - 1);
+                view = new Pair<>(view.getKey(),view.getValue() + p.getValue());
+                views.add(view);
+            }
+        } catch(Exception ex) {
+           // ex.printStackTrace();
+            System.out.println(views.size());
+        }
+        viewsInDay = 0;
     }
 }
