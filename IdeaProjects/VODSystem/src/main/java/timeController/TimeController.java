@@ -65,7 +65,6 @@ public class TimeController {
     }
 
     public String formatDate(Date date) {
-        System.out.println(date);
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         String formatedDate =
                 Integer.toString(localDate.getYear()) + "-" +

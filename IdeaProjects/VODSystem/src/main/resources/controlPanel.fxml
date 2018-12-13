@@ -35,7 +35,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <ListView fx:id="productList" layoutX="14.0" layoutY="79.0" prefHeight="559.0" prefWidth="214.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="644.0" AnchorPane.topAnchor="25.0" />
+      <ListView fx:id="productList" layoutY="82.0" prefHeight="502.0" prefWidth="214.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="644.0" AnchorPane.topAnchor="82.0" />
       <LineChart fx:id="chart" layoutX="214.0" layoutY="206.0" prefHeight="379.0" prefWidth="643.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="214.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="206.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
@@ -45,5 +45,13 @@
         </yAxis>
       </LineChart>
       <TextArea fx:id="filmInfo" layoutX="214.0" layoutY="25.0" prefHeight="181.0" prefWidth="377.0" AnchorPane.bottomAnchor="378.0" AnchorPane.rightAnchor="267.0" AnchorPane.topAnchor="25.0" />
+      <TextField fx:id="pattern" layoutY="25.0" prefHeight="25.0" prefWidth="149.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="25.0" />
+      <Button fx:id="search" layoutX="155.0" layoutY="25.0" mnemonicParsing="false" onAction="#searchProducts" text="search" AnchorPane.bottomAnchor="534.0" AnchorPane.leftAnchor="155.0" AnchorPane.rightAnchor="651.0" AnchorPane.topAnchor="25.0" />
+      <RadioButton fx:id="actor" layoutX="14.0" layoutY="58.0" mnemonicParsing="false" text="Actor">
+         <toggleGroup>
+            <ToggleGroup fx:id="searchBy" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="name" layoutX="106.0" layoutY="58.0" mnemonicParsing="false" text="Name" toggleGroup="$searchBy" />
    </children>
 </AnchorPane>

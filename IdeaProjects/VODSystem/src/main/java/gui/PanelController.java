@@ -17,10 +17,8 @@ import timeController.TimeController;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class PanelController implements Initializable {
     @FXML
@@ -33,6 +31,16 @@ public class PanelController implements Initializable {
     private MenuBar menu;
     @FXML
     private MenuItem refresh;
+    @FXML
+    private RadioButton actor;
+    @FXML
+    private RadioButton name;
+    @FXML
+    private Button search;
+    @FXML
+    private ToggleGroup searchBy;
+    @FXML
+    private TextField pattern;
     private XYChart.Series<String,Integer> views;
 
     @FXML
@@ -62,7 +70,6 @@ public class PanelController implements Initializable {
 
         views = new XYChart.Series<>();
         views.setName("Views");
-
         chart.getData().add(views);
         refreshAll();
     }
@@ -78,6 +85,22 @@ public class PanelController implements Initializable {
             views.getData().add(new XYChart.Data(p.getKey(),p.getValue()));
         }
         views.getData().sort(Comparator.comparingInt(d -> d.getYValue()));
+    }
+
+    @FXML
+    private void searchProducts() {
+        if(searchBy.getSelectedToggle() == null ) {
+            return;
+        }
+        ObservableList<Product> products;
+        if(searchBy.getSelectedToggle() == name) {
+            products = FXCollections.observableList(Simulator.getInstance().getProducts().entrySet().stream().filter(p ->
+                    p.getValue().getName().contains(pattern.getText())).map(p -> p.getValue())
+                    .collect(Collectors.toList()));
+        } else {
+            products = null;
+        }
+        productList.setItems(products);
     }
 
 

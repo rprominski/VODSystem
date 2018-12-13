@@ -21,4 +21,10 @@ public abstract class WatchableObject extends Product {
     public void setActors(List<Actor> actors) {
         this.actors = actors;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "genre: " + genre + "\n" +
+                "actors: " + actors + "\n";
+    }
 }
