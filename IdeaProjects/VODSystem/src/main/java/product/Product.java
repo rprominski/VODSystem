@@ -1,28 +1,34 @@
 package product;
 
 import javafx.util.Pair;
+import product.podamStrategies.BufferedImageStrategy;
 import timeController.TimeController;
+import uk.co.jemos.podam.common.PodamDoubleValue;
 import uk.co.jemos.podam.common.PodamExclude;
 import uk.co.jemos.podam.common.PodamIntValue;
+import uk.co.jemos.podam.common.PodamStrategyValue;
 import user.Distributor;
 
 import java.awt.image.BufferedImage;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public abstract class Product {
+    @PodamStrategyValue(BufferedImageStrategy.class)
     private BufferedImage photo;
     private String name;
     private String description;
+    @PodamExclude
     private Date productionDate;
+    @PodamIntValue(minValue = 60, maxValue = 180)
     private int durationInMinutes;
     @PodamExclude
     private Distributor distributor;
-    private ArrayList<String> CountriesOfProduction;
+    private List<String> countriesOfProduction;
+    @PodamIntValue(minValue = 0, maxValue = 100)
     private int rate;
+    @PodamDoubleValue(minValue = 0, maxValue = 100)
     private double price;
     @PodamIntValue(numValue = "0")
     private int viewsInDay;
@@ -79,12 +85,12 @@ public abstract class Product {
         this.distributor = distributorName;
     }
 
-    public ArrayList<String> getCountriesOfProduction() {
-        return CountriesOfProduction;
+    public List<String> getCountriesOfProduction() {
+        return countriesOfProduction;
     }
 
-    public void setCountriesOfProduction(ArrayList<String> countriesOfProduction) {
-        CountriesOfProduction = countriesOfProduction;
+    public void setCountriesOfProduction(List<String> countriesOfProduction) {
+        this.countriesOfProduction = countriesOfProduction;
     }
 
     public int getRate() {
@@ -140,11 +146,10 @@ public abstract class Product {
                 "description: " + description + '\n' +
                 "productionDate: " + productionDate + '\n' +
                 "durationInMinutes: " + durationInMinutes + '\n' +
-                "distributorName: " + distributor + '\n' +
-                "CountriesOfProduction: " + CountriesOfProduction + '\n' +
+                "distributorName: " + distributor.getName() + '\n' +
+                "countriesOfProduction: " + countriesOfProduction + '\n' +
                 "rate: " + rate + '\n' +
-                "price: " + price + '\n' +
-                "viewsInDay: " + viewsInDay + '\n';
+                "price: " + price + '\n';
     }
 
     @Override
@@ -165,23 +170,19 @@ public abstract class Product {
     public Product() {
         views = new CircularVector<>(30);
         views.add(new Pair<String, Integer>(
-                TimeController.getInstance().formatDate(TimeController.getInstance().getRawSimulationDate()),
-                0));
+                TimeController.getInstance().formatDate(TimeController.getInstance().getRawSimulationDate()),0));
+        productionDate = TimeController.getInstance().getRandomPastDay();
+
     }
 
     public synchronized void updateViews(Pair<String,Integer> view) {
-        try {
-            if (views.get(views.size() - 1).getKey().equals(view.getKey())) {
-                Pair<String, Integer> p = new Pair<String, Integer>(views.get(views.size() - 1).getKey(), views.get(views.size() - 1).getValue() + 1);
-                views.set(views.size() - 1, p);
-            } else {
-                Pair<String, Integer> p = views.get(views.size() - 1);
-                view = new Pair<>(view.getKey(),view.getValue() + p.getValue());
-                views.add(view);
-            }
-        } catch(Exception ex) {
-           // ex.printStackTrace();
-            System.out.println(views.size());
+        if (views.get(views.size() - 1).getKey().equals(view.getKey())) {
+            Pair<String, Integer> p = new Pair<String, Integer>(views.get(views.size() - 1).getKey(), views.get(views.size() - 1).getValue() + 1);
+            views.set(views.size() - 1, p);
+        } else {
+            Pair<String, Integer> p = views.get(views.size() - 1);
+            view = new Pair<>(view.getKey(),view.getValue() + p.getValue());
+            views.add(view);
         }
         viewsInDay = 0;
     }

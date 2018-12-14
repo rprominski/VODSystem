@@ -109,9 +109,9 @@ public class PanelController implements Initializable {
                 if(WatchableObject.class.isAssignableFrom(e.getValue().getClass())) {
                     WatchableObject w = (WatchableObject) e.getValue();
                     for(Actor a : w.getActors()) {
-                        System.out.println(a.getFirstName() + " " + a.getSurname() + " " + pattern.getText());
                         if(a.getFirstName().contains(pattern.getText()) || a.getSurname().contains(pattern.getText())) {
                             products.add(w);
+                            break;
                         }
                     }
                 }

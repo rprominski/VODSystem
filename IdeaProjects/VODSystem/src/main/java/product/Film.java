@@ -1,11 +1,13 @@
 package product;
 
+import uk.co.jemos.podam.common.PodamIntValue;
+
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Film extends WatchableObject {
     private ArrayList<String> trailers;
-    private Date expiryDate;
+    @PodamIntValue(minValue = 30,maxValue = 60)
+    private int expiryDateInDays;
     private Promotion promotion;
 
     public ArrayList<String> getTrailers() {
@@ -16,12 +18,12 @@ public class Film extends WatchableObject {
         this.trailers = trailers;
     }
 
-    public Date getExpiryDate() {
-        return expiryDate;
+    public int getExpiryDateInDays() {
+        return expiryDateInDays;
     }
 
-    public void setExpiryDate(Date expiryDate) {
-        this.expiryDate = expiryDate;
+    public void setExpiryDateInDays(int expiryDateInDays) {
+        this.expiryDateInDays = expiryDateInDays;
     }
 
     public Promotion getPromotion() {
@@ -35,7 +37,7 @@ public class Film extends WatchableObject {
     @Override
     public String toString() {
         return super.toString() + "trailers: " + trailers + '\n' +
-                "expiryDate: " + expiryDate + '\n' +
+                "expiryDateInDays: " + expiryDateInDays + '\n' +
                 "promotion: " + promotion + '\n';
     }
 }

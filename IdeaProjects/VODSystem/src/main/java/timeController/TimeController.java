@@ -1,5 +1,7 @@
 package timeController;
 
+import uk.co.jemos.podam.common.PodamExclude;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -10,16 +12,17 @@ import java.util.Random;
 
 public class TimeController {
     private static TimeController ourInstance = new TimeController();
+    @PodamExclude
     private Date beginning;
+    @PodamExclude
     private int dayTime = 1000;
-    private SimpleDateFormat format;
+
     public static TimeController getInstance() {
         return ourInstance;
     }
 
     private TimeController() {
         beginning = new Date();
-        format = new SimpleDateFormat("yyyy-mm-dd");
     }
 
     public static TimeController getOurInstance() {
@@ -57,6 +60,10 @@ public class TimeController {
 
     public Date getRandomDateInFewDays(int days) {
         return addDays(getRawSimulationDate(),Math.abs(new Random().nextInt() % days));
+    }
+
+    public Date getRandomPastDay() {
+        return addDays(new Date(),-(Math.abs(new Random().nextInt() % 10000)));
     }
 
     public Date addDays(Date date, int days) {

@@ -3,13 +3,16 @@ package user;
 import product.Product;
 import product.transactionController.TransactionController;
 import simulation.Simulator;
+import timeController.TimeController;
 import uk.co.jemos.podam.common.PodamCollection;
+import uk.co.jemos.podam.common.PodamExclude;
 
 import java.util.*;
 
 public class Client extends User implements Runnable{
     private String creditCardNumber;
     private Subscription subscription;
+    @PodamExclude
     private Date dateOfBirth;
     @PodamCollection(nbrElements = 0)
     private Set<Integer> boughtProductsId;
@@ -97,9 +100,9 @@ public class Client extends User implements Runnable{
         this.boughtProductsId = boughtProductsId;
     }
 
-   // public Client() {
-   //     boughtProductsId = new HashSet<>();
-   // }
+    public Client() {
+        dateOfBirth = TimeController.getInstance().getRandomPastDay();
+    }
 
     @Override
     public void run() {
