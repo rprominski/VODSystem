@@ -11,7 +11,9 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import javafx.util.Pair;
+import product.Actor;
 import product.Product;
+import product.WatchableObject;
 import simulation.Simulator;
 import timeController.TimeController;
 
@@ -75,6 +77,9 @@ public class PanelController implements Initializable {
     }
 
     public synchronized void showProductInfo(Product product) {
+        if(product == null) {
+            return;
+        }
         filmInfo.setText(product.toString());
         updateViews(product);
     }
@@ -94,14 +99,24 @@ public class PanelController implements Initializable {
         }
         ObservableList<Product> products;
         if(searchBy.getSelectedToggle() == name) {
-            products = FXCollections.observableList(Simulator.getInstance().getProducts().entrySet().stream().filter(p ->
-                    p.getValue().getName().contains(pattern.getText())).map(p -> p.getValue())
+            products = FXCollections.observableList(Simulator.getInstance().getProducts().entrySet().stream().filter(
+                    p -> p.getValue().getName().contains(pattern.getText()))
+                    .map(p -> p.getValue())
                     .collect(Collectors.toList()));
         } else {
-            products = null;
+            products = FXCollections.observableArrayList();
+            for(Map.Entry e : Simulator.getInstance().getProducts().entrySet()) {
+                if(WatchableObject.class.isAssignableFrom(e.getValue().getClass())) {
+                    WatchableObject w = (WatchableObject) e.getValue();
+                    for(Actor a : w.getActors()) {
+                        System.out.println(a.getFirstName() + " " + a.getSurname() + " " + pattern.getText());
+                        if(a.getFirstName().contains(pattern.getText()) || a.getSurname().contains(pattern.getText())) {
+                            products.add(w);
+                        }
+                    }
+                }
+            }
         }
         productList.setItems(products);
     }
-
-
 }
