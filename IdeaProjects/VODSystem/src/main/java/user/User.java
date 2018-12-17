@@ -29,4 +29,10 @@ public abstract class User {
             thread.start();
         }
     }
+
+    @Override
+    public String toString() {
+        return  "name: " + name + "\n" +
+                "email: " + email + "\n";
+    }
 }

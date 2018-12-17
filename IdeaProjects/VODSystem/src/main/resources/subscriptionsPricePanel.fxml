@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="145.0" prefWidth="417.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SubscriptionPricePanelController">
+   <children>
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="37.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Basic " />
+            <Slider fx:id="basic" blockIncrement="1.0" majorTickUnit="10.0" minorTickCount="1" prefHeight="38.0" prefWidth="250.0" showTickLabels="true" showTickMarks="true" />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="33.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Family" />
+            <Slider fx:id="family" blockIncrement="1.0" majorTickUnit="10.0" minorTickCount="1" prefHeight="38.0" prefWidth="250.0" showTickLabels="true" showTickMarks="true" />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Premium" />
+            <Slider fx:id="premium" blockIncrement="1.0" majorTickUnit="10.0" minorTickCount="0" prefHeight="38.0" prefWidth="250.0" showTickLabels="true" showTickMarks="true" />
+            <Button fx:id="save" mnemonicParsing="false" onAction="#updateSubscriptions" text="Save" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

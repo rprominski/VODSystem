@@ -85,4 +85,11 @@ public class Distributor extends User implements Runnable{
         work();
     }
 
+    @Override
+    public String toString() {
+        return super.toString() +
+                "contract: " + contract + "\n" +
+                "bankAccount: " + bankAccount + "\n" +
+                "monthlyProfit: " + monthlyProfit + "\n";
+    }
 }

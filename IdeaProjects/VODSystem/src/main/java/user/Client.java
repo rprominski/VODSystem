@@ -108,4 +108,12 @@ public class Client extends User implements Runnable{
     public void run() {
         work();
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "creditCardNumber:" + creditCardNumber + "\n" +
+                "subscription:" + subscription + "\n" +
+                "dateOfBirth: " + dateOfBirth + "\n" +
+                "boughtProductsId: " + boughtProductsId + "\n";
+    }
 }

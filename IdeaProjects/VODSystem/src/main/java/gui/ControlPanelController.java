@@ -4,25 +4,29 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Pair;
 import product.Actor;
 import product.Product;
 import product.WatchableObject;
 import simulation.Simulator;
-import timeController.TimeController;
+import user.User;
 
+import java.io.IOException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class PanelController implements Initializable {
+public class ControlPanelController implements Initializable {
     @FXML
     private ListView<Product> productList;
     @FXML
@@ -43,6 +47,10 @@ public class PanelController implements Initializable {
     private ToggleGroup searchBy;
     @FXML
     private TextField pattern;
+    @FXML
+    private ListView<User> usersList;
+    @FXML
+    private MenuItem subscriptions;
     private XYChart.Series<String,Integer> views;
 
     @FXML
@@ -51,12 +59,16 @@ public class PanelController implements Initializable {
         for (Map.Entry<Integer,Product> e : Simulator.getInstance().getProducts().entrySet()) {
             products.add(e.getValue());
         }
+        ObservableList<User> users = FXCollections.observableArrayList();
+        for (Map.Entry<String,User> e : Simulator.getInstance().getUsers().entrySet()) {
+            users.add(e.getValue());
+        }
         productList.setItems(products);
+        usersList.setItems(users);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         productList.setCellFactory(new Callback<ListView<Product>, ListCell<Product>>() {
             @Override
             public ListCell<Product> call(ListView<Product> param) {
@@ -66,22 +78,42 @@ public class PanelController implements Initializable {
         productList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public synchronized void handle(MouseEvent event) {
-                showProductInfo(productList.getSelectionModel().getSelectedItem());
+                Product p = productList.getSelectionModel().getSelectedItem();
+                showProductInfo(p);
+                updateViews(p);
+
             }
         });
-
+        usersList.setCellFactory(new Callback<ListView<User>, ListCell<User>>() {
+            @Override
+            public ListCell<User> call(ListView<User> param) {
+                return new UserListCell();
+            }
+        });
+        usersList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public synchronized void handle(MouseEvent event) {
+                showProductInfo(usersList.getSelectionModel().getSelectedItem());
+            }
+        });
         views = new XYChart.Series<>();
         views.setName("Views");
         chart.getData().add(views);
         refreshAll();
     }
 
-    public synchronized void showProductInfo(Product product) {
-        if(product == null) {
+    public synchronized void showProductInfo(Object obj) {
+        if(obj == null) {
             return;
         }
-        filmInfo.setText(product.toString());
-        updateViews(product);
+        filmInfo.setText(obj.toString());
+    }
+
+    public synchronized void showUserInfo(User user) {
+        if(user == null) {
+            return;
+        }
+        filmInfo.setText(user.toString());
     }
 
     private synchronized void updateViews(Product product) {
@@ -119,4 +151,30 @@ public class PanelController implements Initializable {
         }
         productList.setItems(products);
     }
+    @FXML
+    private void showSubscriptionsWindow() {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/subscriptionsPricePanel.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    @FXML
+    private void showProductPriceWindow() {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/ProductPricePanel.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
 }

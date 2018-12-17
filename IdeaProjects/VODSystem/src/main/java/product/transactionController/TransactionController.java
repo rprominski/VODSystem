@@ -13,7 +13,11 @@ public class TransactionController {
         Distributor distributor = product.getDistributor();
         client.getBoughtProductsId().add(id);
         Distributor d = (Distributor) Simulator.getInstance().getUsers().get(product.getDistributor().getName());
-        d.calculateProfit(product,client.getSubscription());
+        try {
+            d.calculateProfit(product, client.getSubscription());
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
 }

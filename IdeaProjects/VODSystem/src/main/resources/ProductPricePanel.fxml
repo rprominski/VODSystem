@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProductPricePanelController">
+   <children>
+      <ListView fx:id="products" layoutX="14.0" layoutY="14.0" prefHeight="377.0" prefWidth="189.0" />
+      <TextArea fx:id="oldPrice" editable="false" layoutX="213.0" layoutY="37.0" prefHeight="100.0" prefWidth="256.0" text="0">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </TextArea>
+      <TextArea fx:id="newPrice" layoutX="213.0" layoutY="182.0" prefHeight="100.0" prefWidth="256.0" text="0">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </TextArea>
+      <Text layoutX="295.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Old price">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text layoutX="295.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New price">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Button fx:id="save" layoutX="276.0" layoutY="312.0" mnemonicParsing="false" onAction="#updatePrice" prefHeight="31.0" prefWidth="131.0" text="Save" />
+   </children>
+</AnchorPane>
