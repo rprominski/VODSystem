@@ -15,10 +15,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Pair;
-import product.Actor;
-import product.Product;
-import product.WatchableObject;
+import product.*;
 import simulation.Simulator;
+import uk.co.jemos.podam.api.PodamFactory;
+import uk.co.jemos.podam.api.PodamFactoryImpl;
+import user.Client;
+import user.Distributor;
 import user.User;
 
 import java.io.IOException;
@@ -151,6 +153,7 @@ public class ControlPanelController implements Initializable {
         }
         productList.setItems(products);
     }
+
     @FXML
     private void showSubscriptionsWindow() {
         Parent root = null;
@@ -162,6 +165,36 @@ public class ControlPanelController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    @FXML
+    private void addDistributor() {
+        PodamFactory factory = new PodamFactoryImpl();
+        Simulator.getInstance().addUser(factory.manufacturePojo(Distributor.class));
+    }
+
+    @FXML
+    private void addClient() {
+        PodamFactory factory = new PodamFactoryImpl();
+        Simulator.getInstance().addUser(factory.manufacturePojo(Client.class));
+    }
+
+    @FXML
+    private void addFilm() {
+        PodamFactory factory = new PodamFactoryImpl();
+        Simulator.getInstance().addProduct(factory.manufacturePojo(Film.class));
+    }
+
+    @FXML
+    private void addSeries() {
+        PodamFactory factory = new PodamFactoryImpl();
+        Simulator.getInstance().addProduct(factory.manufacturePojo(Series.class));
+    }
+
+    @FXML
+    private void addLiveStream() {
+        PodamFactory factory = new PodamFactoryImpl();
+        Simulator.getInstance().addProduct(factory.manufacturePojo(LiveStream.class));
     }
 
     @FXML

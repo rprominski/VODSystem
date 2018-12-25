@@ -25,14 +25,18 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem mnemonicParsing="false" text="Delete Product" />
                   <MenuItem fx:id="productPrice" mnemonicParsing="false" onAction="#showProductPriceWindow" text="Product price" />
                   <MenuItem fx:id="subscriptions" mnemonicParsing="false" onAction="#showSubscriptionsWindow" text="Subscriptions" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+                  <Menu mnemonicParsing="false" text="Add">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#addDistributor" text="Distributor" />
+                        <MenuItem mnemonicParsing="false" onAction="#addClient" text="Client" />
+                        <MenuItem mnemonicParsing="false" onAction="#addFilm" text="Film" />
+                        <MenuItem mnemonicParsing="false" onAction="#addSeries" text="Series" />
+                        <MenuItem mnemonicParsing="false" onAction="#addLiveStream" text="LiveStream" />
+                    </items>
+                  </Menu>
             </items>
           </Menu>
         </menus>
