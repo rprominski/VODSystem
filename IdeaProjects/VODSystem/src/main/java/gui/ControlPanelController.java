@@ -8,13 +8,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import javafx.util.Pair;
 import product.*;
 import simulation.Simulator;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -31,10 +28,6 @@ import java.util.stream.Collectors;
 public class ControlPanelController implements Initializable {
     @FXML
     private ListView<Product> productList;
-    @FXML
-    private LineChart chart;
-    @FXML
-    private TextArea filmInfo;
     @FXML
     private MenuBar menu;
     @FXML
@@ -53,7 +46,6 @@ public class ControlPanelController implements Initializable {
     private ListView<User> usersList;
     @FXML
     private MenuItem subscriptions;
-    private XYChart.Series<String,Integer> views;
 
     @FXML
     private void refreshAll() {
@@ -81,9 +73,7 @@ public class ControlPanelController implements Initializable {
             @Override
             public synchronized void handle(MouseEvent event) {
                 Product p = productList.getSelectionModel().getSelectedItem();
-                showProductInfo(p);
-                updateViews(p);
-
+                showInfo(p);
             }
         });
         usersList.setCellFactory(new Callback<ListView<User>, ListCell<User>>() {
@@ -95,35 +85,17 @@ public class ControlPanelController implements Initializable {
         usersList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public synchronized void handle(MouseEvent event) {
-                showProductInfo(usersList.getSelectionModel().getSelectedItem());
+                showInfo(usersList.getSelectionModel().getSelectedItem());
             }
         });
-        views = new XYChart.Series<>();
-        views.setName("Views");
-        chart.getData().add(views);
         refreshAll();
     }
 
-    public synchronized void showProductInfo(Object obj) {
+    public synchronized void showInfo(Object obj) {
         if(obj == null) {
             return;
         }
-        filmInfo.setText(obj.toString());
-    }
-
-    public synchronized void showUserInfo(User user) {
-        if(user == null) {
-            return;
-        }
-        filmInfo.setText(user.toString());
-    }
-
-    private synchronized void updateViews(Product product) {
-        views.getData().clear();
-        for(Pair<String,Integer> p : product.getViews()) {
-            views.getData().add(new XYChart.Data(p.getKey(),p.getValue()));
-        }
-        views.getData().sort(Comparator.comparingInt(d -> d.getYValue()));
+        showInfoPanel(obj);
     }
 
     @FXML
@@ -207,6 +179,22 @@ public class ControlPanelController implements Initializable {
         }
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    private void showInfoPanel(Object obj) {
+        Parent root = null;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/InfoPanel.fxml"));
+        try {
+            root = fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        InfoPanelController infoPanelController = fxmlLoader.getController();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        infoPanelController.setInfo(obj);
         stage.show();
     }
 

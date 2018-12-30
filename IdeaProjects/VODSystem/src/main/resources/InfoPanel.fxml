@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.InfoPanelController">
+   <children>
+      <TextArea fx:id="filmInfo" layoutX="14.0" layoutY="8.0" prefHeight="181.0" prefWidth="377.0" />
+      <LineChart fx:id="chart" layoutX="14.0" layoutY="205.0" prefHeight="380.0" prefWidth="642.0">
+         <xAxis>
+            <CategoryAxis side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis side="LEFT" />
+         </yAxis>
+      </LineChart>
+      <Button fx:id="delete" layoutX="448.0" layoutY="57.0" mnemonicParsing="false" onAction="#deleteObject" prefHeight="83.0" prefWidth="145.0" text="Delete" textFill="#e80f0f">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
