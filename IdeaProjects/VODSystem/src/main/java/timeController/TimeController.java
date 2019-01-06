@@ -49,6 +49,10 @@ public class TimeController {
         return dayTime;
     }
 
+    public int getMonth() {
+        return getRawSimulationDate().getMonth();
+    }
+
     public void setDayTime(int dayTime) {
         this.dayTime = dayTime;
     }

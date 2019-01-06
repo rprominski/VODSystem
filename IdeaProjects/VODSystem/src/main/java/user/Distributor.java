@@ -6,14 +6,17 @@ import product.LiveStream;
 import product.Product;
 import product.Series;
 import simulation.Simulator;
+import timeController.TimeController;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
+
+import java.sql.Time;
 import java.util.Random;
 
 public class Distributor extends User implements Runnable{
     private Contract contract;
     private String bankAccount;
-    private double monthlyProfit;
+    private int lastIncomeMonth;
 
     public Contract getContract() {
         return contract;
@@ -45,8 +48,15 @@ public class Distributor extends User implements Runnable{
         }
     }
 
-    public void calculateProfit(Product product, Subscription subscription) {
-
+    public double calculateProfit(Product product, Subscription subscription) {
+        double sum = contract.getProfitForProduct();
+        int month = TimeController.getInstance().getMonth();
+        if(month != lastIncomeMonth) {
+            sum += contract.getMonthlyLumpSum();
+            lastIncomeMonth = month;
+        }
+        Simulator.getInstance().calculateIncomeFromProduct(product.getPrice() - sum,month);
+        return sum;
     }
 
     public void setContract(Contract contract) {
@@ -61,15 +71,8 @@ public class Distributor extends User implements Runnable{
         this.bankAccount = bankAccount;
     }
 
-    public double getMonthlyProfit() {
-        return monthlyProfit;
-    }
-
-    public void setMonthlyProfit(double monthlyProfit) {
-        this.monthlyProfit = monthlyProfit;
-    }
-
     public void work() {
+        lastIncomeMonth = -1;
         while(Boolean.TRUE) {
             disturbe();
             negotiateContract();
@@ -89,7 +92,6 @@ public class Distributor extends User implements Runnable{
     public String toString() {
         return super.toString() +
                 "contract: " + contract + "\n" +
-                "bankAccount: " + bankAccount + "\n" +
-                "monthlyProfit: " + monthlyProfit + "\n";
+                "bankAccount: " + bankAccount + "\n";
     }
 }

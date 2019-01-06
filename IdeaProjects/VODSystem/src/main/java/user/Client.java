@@ -39,7 +39,10 @@ public class Client extends User implements Runnable{
             int which = Math.abs(random.nextInt()) % boughtProductsId.size();
             for(Integer i : boughtProductsId) {
                 if(which == 0) {
-                    Simulator.getInstance().getProducts().get(i).addView();
+                    Product p = Simulator.getInstance().getProducts().get(i);
+                    if(p != null) {
+                        p.addView();
+                    }
                     return;
                 }
                 else {

@@ -57,6 +57,7 @@ public class ControlPanelController implements Initializable {
         for (Map.Entry<String,User> e : Simulator.getInstance().getUsers().entrySet()) {
             users.add(e.getValue());
         }
+        productList.getItems().clear();
         productList.setItems(products);
         usersList.setItems(users);
     }

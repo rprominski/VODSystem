@@ -1,9 +1,8 @@
 package simulation;
 
-import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
-import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
+import javafx.util.Pair;
+import product.CircularVector;
 import product.Product;
-import sun.awt.windows.ThemeReader;
 import timeController.TimeController;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
@@ -12,6 +11,7 @@ import user.Distributor;
 import user.Subscription;
 import user.User;
 
+import java.sql.Time;
 import java.util.*;
 
 public class Simulator extends Thread{
@@ -25,6 +25,17 @@ public class Simulator extends Thread{
     private Subscription basic;
     private Subscription family ;
     private Subscription premium;
+    private Pair<Integer,Double> currentMonthIncome;
+    private CircularVector<Double> incomes;
+
+    public synchronized void calculateIncomeFromProduct(double income,int month) {
+        if(month == currentMonthIncome.getKey()) {
+            currentMonthIncome = new Pair<>(month,currentMonthIncome.getValue() + income);
+        } else {
+            incomes.add(currentMonthIncome.getValue());
+            currentMonthIncome = new Pair<>(month,income);
+        }
+    }
 
     public void saveSimulation(String path) {
 
@@ -46,6 +57,9 @@ public class Simulator extends Thread{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            if(lossIn3Months()) {
+                stopSimulation();
+            }
         }
     }
 
@@ -65,16 +79,15 @@ public class Simulator extends Thread{
     }
 
     public void removeUser(User user) {
-
+        users.get(user.getName());
     }
 
     public void removeProduct(Product product) {
-
+        products.remove(product.getId());
     }
 
     public void stopSimulation() {
         end = true;
-        System.out.println(end);
     }
 
     public static Simulator getInstance() {
@@ -88,6 +101,8 @@ public class Simulator extends Thread{
         basic = new Subscription(1.0,2,3);
         family = new Subscription(2.0, 3, 4);
         premium = new Subscription(3.0, 4,5);
+        incomes = new CircularVector<Double>(3);
+        currentMonthIncome = new Pair<Integer, Double>(TimeController.getInstance().getMonth(),0.0);
     }
 
     public Map<String,User> getUsers() {
@@ -124,5 +139,15 @@ public class Simulator extends Thread{
 
     public void setPremium(Subscription premium) {
         this.premium = premium;
+    }
+
+    public boolean lossIn3Months() {
+        int l = 0;
+        for(double i : incomes) {
+            if(i < 0) {
+                l++;
+            }
+        }
+        return l == 3;
     }
 }

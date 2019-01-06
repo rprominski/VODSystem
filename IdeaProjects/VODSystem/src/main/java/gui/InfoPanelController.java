@@ -10,6 +10,8 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import product.Product;
+import simulation.Simulator;
+import user.User;
 
 import java.net.URL;
 import java.util.Comparator;
@@ -25,9 +27,16 @@ public class InfoPanelController implements Initializable{
     @FXML
     private LineChart chart;
     private XYChart.Series<String,Integer> views;
+    private Object object;
     @FXML
     public void deleteObject() {
         Stage stage = (Stage) delete.getScene().getWindow();
+        if(Product.class.isAssignableFrom(object.getClass())) {
+            Simulator.getInstance().removeProduct((Product) object);
+        }
+        if(User.class.isAssignableFrom(object.getClass())) {
+            Simulator.getInstance().removeUser((User) object);
+        }
         stage.close();
     }
 
@@ -36,6 +45,7 @@ public class InfoPanelController implements Initializable{
     }
 
     public void setInfo(Object obj) {
+        object = obj;
         filmInfo.setText(obj.toString());
         if(Product.class.isAssignableFrom(obj.getClass())) {
             updateViews((Product) obj);

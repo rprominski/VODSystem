@@ -22,6 +22,7 @@ public class ControlPanel extends Application{
         Simulator.getInstance().start();
         Parent root = FXMLLoader.load(getClass().getResource("/controlPanel.fxml"));
         primaryStage.setScene(new Scene(root));
+        primaryStage.setResizable(false);
         primaryStage.show();
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override

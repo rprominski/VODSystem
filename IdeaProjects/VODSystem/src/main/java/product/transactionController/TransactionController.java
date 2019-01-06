@@ -10,14 +10,11 @@ public class TransactionController {
 
     public void performTranscation(Client client, int id) {
         Product product = Simulator.getInstance().getProducts().get(id);
+        if(product == null) {
+            return;
+        }
         Distributor distributor = product.getDistributor();
         client.getBoughtProductsId().add(id);
-        Distributor d = (Distributor) Simulator.getInstance().getUsers().get(product.getDistributor().getName());
-        try {
-            d.calculateProfit(product, client.getSubscription());
-        } catch(Exception ex) {
-            ex.printStackTrace();
-        }
+        distributor.calculateProfit(product, client.getSubscription());
     }
-
 }
