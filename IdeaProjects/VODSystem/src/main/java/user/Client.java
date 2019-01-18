@@ -2,6 +2,7 @@ package user;
 
 import product.Product;
 import product.transactionController.TransactionController;
+import simulation.Simulation;
 import simulation.Simulator;
 import timeController.TimeController;
 import uk.co.jemos.podam.common.PodamCollection;
@@ -20,10 +21,10 @@ public class Client extends User implements Runnable{
     public void buyProduct() {
         Random random = new Random();
         if(Math.abs(random.nextInt()) % 5 != 0 && boughtProductsId.size() != 0 ||
-                Simulator.getInstance().getProducts().size() == 0) {
+                Simulation.getInstance().getSimulator().getProducts().size() == 0) {
             return;
         }
-        int id = Math.abs(random.nextInt()) % Simulator.getInstance().getProducts().size();
+        int id = Math.abs(random.nextInt()) % Simulation.getInstance().getSimulator().getProducts().size();
 
         if(boughtProductsId.contains(id)) {
             return;
@@ -39,7 +40,7 @@ public class Client extends User implements Runnable{
             int which = Math.abs(random.nextInt()) % boughtProductsId.size();
             for(Integer i : boughtProductsId) {
                 if(which == 0) {
-                    Product p = Simulator.getInstance().getProducts().get(i);
+                    Product p = Simulation.getInstance().getSimulator().getProducts().get(i);
                     if(p != null) {
                         p.addView();
                     }

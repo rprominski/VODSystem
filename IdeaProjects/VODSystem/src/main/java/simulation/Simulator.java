@@ -11,11 +11,11 @@ import user.Distributor;
 import user.Subscription;
 import user.User;
 
+import java.io.*;
 import java.sql.Time;
 import java.util.*;
 
-public class Simulator extends Thread{
-    private static Simulator ourInstance = new Simulator();
+public class Simulator extends Thread implements Serializable{
     private Map<String,User> users;
     private Map<Integer,Product> products;
     private double profitFromSystem;
@@ -37,14 +37,7 @@ public class Simulator extends Thread{
         }
     }
 
-    public void saveSimulation(String path) {
-
-    }
-
-    public void loadSimulation(String path) {
-
-    }
-
+    @Override
     public void run() {
         PodamFactory podamFactory = new PodamFactoryImpl();
         addUser(podamFactory.manufacturePojo(Distributor.class));
@@ -61,6 +54,7 @@ public class Simulator extends Thread{
                 stopSimulation();
             }
         }
+        System.exit(0);
     }
 
     public void addUser(User user) {
@@ -90,11 +84,7 @@ public class Simulator extends Thread{
         end = true;
     }
 
-    public static Simulator getInstance() {
-        return ourInstance;
-    }
-
-    private Simulator() {
+    public Simulator() {
         maxProductId = 0;
         users = new HashMap<>();
         products = new HashMap<>();
@@ -103,6 +93,7 @@ public class Simulator extends Thread{
         premium = new Subscription(3.0, 4,5);
         incomes = new CircularVector<Double>(3);
         currentMonthIncome = new Pair<Integer, Double>(TimeController.getInstance().getMonth(),0.0);
+        ObjectInputStream in = null;
     }
 
     public Map<String,User> getUsers() {

@@ -3,7 +3,9 @@ package user;
 import uk.co.jemos.podam.common.PodamDoubleValue;
 import uk.co.jemos.podam.common.PodamIntValue;
 
-public class Contract {
+import java.io.Serializable;
+
+public class Contract implements Serializable {
     @PodamDoubleValue(minValue = 100, maxValue = 3000)
     private double monthlyLumpSum;
     @PodamDoubleValue(minValue = 1,maxValue = 20)

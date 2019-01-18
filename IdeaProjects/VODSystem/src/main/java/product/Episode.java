@@ -4,9 +4,10 @@ import product.podamStrategies.DateStrategy;
 import uk.co.jemos.podam.common.PodamIntValue;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 
+import java.io.Serializable;
 import java.util.Date;
 
-class Episode {
+class Episode implements Serializable {
     @PodamStrategyValue(DateStrategy.class)
     private Date startDate;
     @PodamIntValue(minValue = 30, maxValue = 60)

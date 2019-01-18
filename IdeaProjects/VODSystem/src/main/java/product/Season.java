@@ -1,6 +1,8 @@
 package product;
 
-public class Season {
+import java.io.Serializable;
+
+public class Season implements Serializable {
     private int number;
 
     public int getNumber() {

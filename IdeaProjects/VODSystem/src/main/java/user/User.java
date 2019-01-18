@@ -1,9 +1,11 @@
 package user;
 
-public abstract class User {
+import java.io.Serializable;
+
+public abstract class User implements Serializable {
     private String name;
     private String email;
-    private Thread thread;
+    private transient Thread thread;
 
     public abstract void work();
 
@@ -28,6 +30,10 @@ public abstract class User {
             thread = new Thread((Runnable) this);
             thread.start();
         }
+    }
+
+    public void stop() {
+        Thread.currentThread().interrupt();
     }
 
     @Override

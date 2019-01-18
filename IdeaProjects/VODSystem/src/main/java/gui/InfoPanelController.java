@@ -10,6 +10,7 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import product.Product;
+import simulation.Simulation;
 import simulation.Simulator;
 import user.User;
 
@@ -32,10 +33,10 @@ public class InfoPanelController implements Initializable{
     public void deleteObject() {
         Stage stage = (Stage) delete.getScene().getWindow();
         if(Product.class.isAssignableFrom(object.getClass())) {
-            Simulator.getInstance().removeProduct((Product) object);
+            Simulation.getInstance().getSimulator().removeProduct((Product) object);
         }
         if(User.class.isAssignableFrom(object.getClass())) {
-            Simulator.getInstance().removeUser((User) object);
+            Simulation.getInstance().getSimulator().removeUser((User) object);
         }
         stage.close();
     }

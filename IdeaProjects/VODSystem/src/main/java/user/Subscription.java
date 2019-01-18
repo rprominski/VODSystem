@@ -3,7 +3,9 @@ package user;
 import uk.co.jemos.podam.common.PodamDoubleValue;
 import uk.co.jemos.podam.common.PodamIntValue;
 
-public class Subscription {
+import java.io.Serializable;
+
+public class Subscription implements Serializable {
     @PodamDoubleValue(minValue = 1.0, maxValue = 100.0)
     private double price;
     @PodamIntValue(minValue = 1, maxValue = 20)

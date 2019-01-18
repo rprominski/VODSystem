@@ -1,6 +1,8 @@
 package product;
 
-public class Actor {
+import java.io.Serializable;
+
+public class Actor implements Serializable {
     private String firstName;
     private String surname;
 

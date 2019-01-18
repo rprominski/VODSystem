@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import product.Product;
+import simulation.Simulation;
 import simulation.Simulator;
 
 import java.net.URL;
@@ -41,7 +42,7 @@ public class ProductPricePanelController implements Initializable{
             }
         });
         ObservableList<Product> products = FXCollections.observableArrayList();
-        for (Map.Entry<Integer,Product> e : Simulator.getInstance().getProducts().entrySet()) {
+        for (Map.Entry<Integer,Product> e : Simulation.getInstance().getSimulator().getProducts().entrySet()) {
             products.add(e.getValue());
         }
         this.products.setItems(products);
@@ -52,7 +53,7 @@ public class ProductPricePanelController implements Initializable{
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Saved");
 
-        Simulator.getInstance().getProducts().get(p.getId()).setPrice(Double.parseDouble(newPrice.getText()));
+        Simulation.getInstance().getSimulator().getProducts().get(p.getId()).setPrice(Double.parseDouble(newPrice.getText()));
         alert.show();
     }
 }

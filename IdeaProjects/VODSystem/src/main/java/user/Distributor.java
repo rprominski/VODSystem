@@ -5,6 +5,7 @@ import product.Film;
 import product.LiveStream;
 import product.Product;
 import product.Series;
+import simulation.Simulation;
 import simulation.Simulator;
 import timeController.TimeController;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -23,7 +24,7 @@ public class Distributor extends User implements Runnable{
     }
 
     private void disturbe() {
-        for(int j = 0; j < Simulator.getInstance().getProducts().size()/100 + 1; j++) {
+        for(int j = 0; j < Simulation.getInstance().getSimulator().getProducts().size()/100 + 1; j++) {
             Product product;
             Random random = new Random();
             int i = Math.abs(random.nextInt());
@@ -38,7 +39,7 @@ public class Distributor extends User implements Runnable{
                 product = factory.manufacturePojo(LiveStream.class);
             }
             product.setDistributor(this);
-            Simulator.getInstance().addProduct(product);
+            Simulation.getInstance().getSimulator().addProduct(product);
         }
     }
 
@@ -55,7 +56,7 @@ public class Distributor extends User implements Runnable{
             sum += contract.getMonthlyLumpSum();
             lastIncomeMonth = month;
         }
-        Simulator.getInstance().calculateIncomeFromProduct(product.getPrice() - sum,month);
+        Simulation.getInstance().getSimulator().calculateIncomeFromProduct(product.getPrice() - sum,month);
         return sum;
     }
 

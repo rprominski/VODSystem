@@ -4,10 +4,11 @@ import timeController.TimeController;
 import uk.co.jemos.podam.common.PodamExclude;
 import uk.co.jemos.podam.common.PodamIntValue;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
 
-public class Promotion {
+public class Promotion implements Serializable {
     @PodamExclude
     private Date startDate;
     @PodamExclude

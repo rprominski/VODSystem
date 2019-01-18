@@ -6,6 +6,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
 import product.Product;
+import simulation.Simulation;
 import simulation.Simulator;
 
 import java.util.Map;
@@ -28,7 +29,7 @@ public class ProductList extends ListView<Product> {
 
     private ObservableList<Product> getProducts() {
         ObservableList<Product> products = FXCollections.observableArrayList();
-        for (Map.Entry<Integer,Product> e : Simulator.getInstance().getProducts().entrySet()) {
+        for (Map.Entry<Integer,Product> e : Simulation.getInstance().getSimulator().getProducts().entrySet()) {
             products.add(e.getValue());
         }
         return products;

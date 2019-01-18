@@ -27,8 +27,8 @@ public class ProductListCell extends ListCell<Product>{
         super.updateItem(product,empty);
         if(product != null && !empty) {
             name.setText(product.getName());
-            Image photo = SwingFXUtils.toFXImage(product.getPhoto(), null);
-            image.setImage(photo);
+//            Image photo = SwingFXUtils.toFXImage(product.getPhoto(), null);
+  //          image.setImage(photo);
             setGraphic(content);
         } else {
             setGraphic(null);

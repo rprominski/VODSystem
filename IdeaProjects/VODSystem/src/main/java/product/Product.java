@@ -10,13 +10,14 @@ import uk.co.jemos.podam.common.PodamStrategyValue;
 import user.Distributor;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public abstract class Product {
+public abstract class Product implements Serializable {
     @PodamStrategyValue(BufferedImageStrategy.class)
-    private BufferedImage photo;
+    private transient BufferedImage photo;
     private String name;
     private String description;
     @PodamExclude
