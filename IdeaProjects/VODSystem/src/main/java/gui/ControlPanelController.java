@@ -224,11 +224,4 @@ public class ControlPanelController implements Initializable {
             }
         }
     }
-    @FXML
-    public void load() {
-        FileChooser fileChooser = new FileChooser();
-        File selected = new File(fileChooser.showOpenDialog(ap.getScene().getWindow()),"");
-        ObjectInputStream in = null;
-        Simulation.getInstance().loadSimulator(selected.getAbsolutePath());
-    }
 }

@@ -1,11 +1,9 @@
 package simulation;
 
-import user.User;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.Map;
+
 
 public class Simulation {
     private Simulator simulator;
@@ -31,19 +29,13 @@ public class Simulation {
 
     public void loadSimulator(String path) {
         ObjectInputStream in = null;
-        System.out.println(simulator);
         Simulator s = null;
+
         try {
             in = new ObjectInputStream(new FileInputStream(path));
             simulator = (Simulator) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-      //  System.out.println(s);
-       // simulator.run();
-     /*   System.out.println(this.simulator);
-            for (Map.Entry<String,User> u  : simulator.getUsers().entrySet()) {
-            u.getValue().start();
-        }*/
     }
 }
