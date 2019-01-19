@@ -5,6 +5,9 @@ import uk.co.jemos.podam.common.PodamIntValue;
 
 import java.io.Serializable;
 
+/**
+ * Stores information about subscription.
+ */
 public class Subscription implements Serializable {
     @PodamDoubleValue(minValue = 1.0, maxValue = 100.0)
     private double price;

@@ -1,8 +1,10 @@
 package product;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Stores information about series.
+ */
 public class Series extends Product {
     private Season season;
     private ArrayList<Episode> episodes;

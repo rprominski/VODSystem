@@ -28,6 +28,9 @@ import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Control behaviour of controll panel
+ */
 public class ControlPanelController implements Initializable {
     @FXML
     private ListView<Product> productList;
@@ -52,6 +55,9 @@ public class ControlPanelController implements Initializable {
     @FXML
     private AnchorPane ap;
     @FXML
+    /**
+     * Refresh the view of controll panel. It is used to see changes after delete, create project/user etc.
+     */
     private void refreshAll() {
         ObservableList<Product> products = FXCollections.observableArrayList();
         for (Map.Entry<Integer,Product> e : Simulation.getInstance().getSimulator().getProducts().entrySet()) {
@@ -66,6 +72,11 @@ public class ControlPanelController implements Initializable {
         usersList.setItems(users);
     }
 
+    /**
+     * Sets type of information displaying in two list in control panel.
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         productList.setCellFactory(new Callback<ListView<Product>, ListCell<Product>>() {
@@ -96,6 +107,10 @@ public class ControlPanelController implements Initializable {
         refreshAll();
     }
 
+    /**
+     * Check if object exists and shows window with information about product or user.
+     * @param obj Products/user you want to know about.
+     */
     public synchronized void showInfo(Object obj) {
         if(obj == null) {
             return;
@@ -103,6 +118,9 @@ public class ControlPanelController implements Initializable {
         showInfoPanel(obj);
     }
 
+    /**
+     * Searchs products by parameters given by user in control panel and displays it.
+     */
     @FXML
     private void searchProducts() {
         if(searchBy.getSelectedToggle() == null ) {
@@ -131,6 +149,9 @@ public class ControlPanelController implements Initializable {
         productList.setItems(products);
     }
 
+    /**
+     * Shows window where you can change the parameters of subscriptions.
+     */
     @FXML
     private void showSubscriptionsWindow() {
         Parent root = null;
@@ -144,18 +165,25 @@ public class ControlPanelController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Adds new distributor to simulation.
+     */
     @FXML
     private void addDistributor() {
         PodamFactory factory = new PodamFactoryImpl();
         Simulation.getInstance().getSimulator().addUser(factory.manufacturePojo(Distributor.class));
     }
-
+    /**
+     * Adds new client to simulation.
+     */
     @FXML
     private void addClient() {
         PodamFactory factory = new PodamFactoryImpl();
         Simulation.getInstance().getSimulator().addUser(factory.manufacturePojo(Client.class));
     }
-
+    /**
+     * Adds new film to simulation.
+     */
     @FXML
     private void addFilm() {
         PodamFactory factory = new PodamFactoryImpl();
@@ -163,7 +191,9 @@ public class ControlPanelController implements Initializable {
         p.setDistributor(factory.manufacturePojo(Distributor.class));
         Simulation.getInstance().getSimulator().addProduct(p);
     }
-
+    /**
+     * Adds new series to simulation.
+     */
     @FXML
     private void addSeries() {
         PodamFactory factory = new PodamFactoryImpl();
@@ -171,7 +201,9 @@ public class ControlPanelController implements Initializable {
         p.setDistributor(factory.manufacturePojo(Distributor.class));
         Simulation.getInstance().getSimulator().addProduct(p);
     }
-
+    /**
+     * Adds new live stream to simulation.
+     */
     @FXML
     private void addLiveStream() {
         PodamFactory factory = new PodamFactoryImpl();
@@ -179,7 +211,9 @@ public class ControlPanelController implements Initializable {
         p.setDistributor(factory.manufacturePojo(Distributor.class));
         Simulation.getInstance().getSimulator().addProduct(p);
     }
-
+    /**
+     * Shows window where you can change the price of product.
+     */
     @FXML
     private void showProductPriceWindow() {
         Parent root = null;
@@ -192,7 +226,9 @@ public class ControlPanelController implements Initializable {
         stage.setScene(new Scene(root));
         stage.show();
     }
-
+    /**
+     * Shows window with information about product or user
+     */
     private void showInfoPanel(Object obj) {
         Parent root = null;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/InfoPanel.fxml"));
@@ -209,6 +245,9 @@ public class ControlPanelController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Save simulation to selected folder.
+     */
     @FXML
     public void save() {
         DirectoryChooser directoryChooser = new DirectoryChooser();

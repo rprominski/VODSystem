@@ -2,6 +2,9 @@ package product;
 
 import java.io.Serializable;
 
+/**
+ * Stores information about actor
+ */
 public class Actor implements Serializable {
     private String firstName;
     private String surname;

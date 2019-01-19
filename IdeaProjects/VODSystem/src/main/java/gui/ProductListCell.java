@@ -11,10 +11,14 @@ import product.Product;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * Describe how store product in cell of listview.
+ */
 public class ProductListCell extends ListCell<Product>{
     private HBox content;
     private Text name;
     private ImageView image;
+
     public ProductListCell() {
         super();
         name = new Text();
@@ -27,8 +31,6 @@ public class ProductListCell extends ListCell<Product>{
         super.updateItem(product,empty);
         if(product != null && !empty) {
             name.setText(product.getName());
-//            Image photo = SwingFXUtils.toFXImage(product.getPhoto(), null);
-  //          image.setImage(photo);
             setGraphic(content);
         } else {
             setGraphic(null);

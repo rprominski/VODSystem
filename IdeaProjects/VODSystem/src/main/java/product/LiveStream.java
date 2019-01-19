@@ -2,6 +2,9 @@ package product;
 
 import java.util.Date;
 
+/**
+ * Stores information about live stream.
+ */
 public class LiveStream extends Product{
     private Date startDate;
     private Promotion promotion;

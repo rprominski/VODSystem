@@ -15,6 +15,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Stores information about product.
+ */
 public abstract class Product implements Serializable {
     @PodamStrategyValue(BufferedImageStrategy.class)
     private transient BufferedImage photo;
@@ -168,6 +171,11 @@ public abstract class Product implements Serializable {
         return name.hashCode();
     }
 
+
+    /**
+     * Sets max number of stored information about how many views was in specific day. Also adds information that
+     * there was 0 views in day of add the pre=oduct to system and sets the production date to random day in past.
+     */
     public Product() {
         views = new CircularVector<>(30);
         views.add(new Pair<String, Integer>(
@@ -176,6 +184,10 @@ public abstract class Product implements Serializable {
 
     }
 
+    /**
+     * If there was some views in current day increment them by 1. Else create new information that in current was 1 view.
+     * @param view
+     */
     public synchronized void updateViews(Pair<String,Integer> view) {
         if (views.get(views.size() - 1).getKey().equals(view.getKey())) {
             Pair<String, Integer> p = new Pair<String, Integer>(views.get(views.size() - 1).getKey(), views.get(views.size() - 1).getValue() + 1);

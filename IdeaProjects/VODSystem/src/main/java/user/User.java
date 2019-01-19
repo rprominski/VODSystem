@@ -2,6 +2,9 @@ package user;
 
 import java.io.Serializable;
 
+/**
+ * Describe common behaviour and fields of client and distributor.
+ */
 public abstract class User implements Serializable {
     private String name;
     private String email;
@@ -32,9 +35,9 @@ public abstract class User implements Serializable {
         }
     }
 
-    public void stop() {
+  /*  public void stop() {
         Thread.currentThread().interrupt();
-    }
+    }*/
 
     @Override
     public String toString() {

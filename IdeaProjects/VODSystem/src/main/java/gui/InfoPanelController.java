@@ -17,7 +17,9 @@ import user.User;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.ResourceBundle;
-
+/**
+ * Control behaviour of Information panel.
+ */
 public class InfoPanelController implements Initializable{
     @FXML
     public Button delete;
@@ -29,6 +31,10 @@ public class InfoPanelController implements Initializable{
     private LineChart chart;
     private XYChart.Series<String,Integer> views;
     private Object object;
+
+    /**
+     * Delete object from simulation after click button.
+     */
     @FXML
     public void deleteObject() {
         Stage stage = (Stage) delete.getScene().getWindow();
@@ -45,6 +51,10 @@ public class InfoPanelController implements Initializable{
         return filmInfo;
     }
 
+    /**
+     * Set text about product/user in text area.
+     * @param obj Selected object
+     */
     public void setInfo(Object obj) {
         object = obj;
         filmInfo.setText(obj.toString());
@@ -53,6 +63,11 @@ public class InfoPanelController implements Initializable{
         }
     }
 
+    /**
+     * Set basic chart parameters.
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         views = new XYChart.Series<>();
@@ -60,6 +75,10 @@ public class InfoPanelController implements Initializable{
         chart.getData().add(views);
     }
 
+    /**
+     * Updates the data in chart of views in time.
+     * @param product
+     */
     private synchronized void updateViews(Product product) {
         views.getData().clear();
         for(Pair<String,Integer> p : product.getViews()) {

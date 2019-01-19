@@ -14,15 +14,24 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 import java.sql.Time;
 import java.util.Random;
 
+/**
+ *
+ */
 public class Distributor extends User implements Runnable{
     private Contract contract;
     private String bankAccount;
+    /**
+     * Number of month of when get last income, using to know when give him monthly lump sum.
+     */
     private int lastIncomeMonth;
 
     public Contract getContract() {
         return contract;
     }
 
+    /**
+     * Describe how distributor creates products
+     */
     private void disturbe() {
         for(int j = 0; j < Simulation.getInstance().getSimulator().getProducts().size()/100 + 1; j++) {
             Product product;
@@ -43,12 +52,21 @@ public class Distributor extends User implements Runnable{
         }
     }
 
+    /**
+     * Define when distributor changes contract.
+     */
     private void negotiateContract() {
         if(new Random().nextInt()%100 == 0) {
             contract = new Contract();
         }
     }
 
+    /**
+     * Calculate profit from product.
+     * @param product product which was bought.
+     * @param subscription Subscription of client who bought the prodcut.
+     * @return
+     */
     public double calculateProfit(Product product, Subscription subscription) {
         double sum = contract.getProfitForProduct();
         int month = TimeController.getInstance().getMonth();
@@ -72,6 +90,12 @@ public class Distributor extends User implements Runnable{
         this.bankAccount = bankAccount;
     }
 
+    @Override
+    public void run() {
+        work();
+    }
+
+    @Override
     public void work() {
         lastIncomeMonth = -1;
         while(Boolean.TRUE) {
@@ -83,10 +107,6 @@ public class Distributor extends User implements Runnable{
                 e.printStackTrace();
             }
         }
-    }
-
-    public void run() {
-        work();
     }
 
     @Override

@@ -8,6 +8,9 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
 
+/**
+ * Stores information about promotion for products.
+ */
 public class Promotion implements Serializable {
     @PodamExclude
     private Date startDate;

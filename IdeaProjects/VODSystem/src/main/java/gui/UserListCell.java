@@ -1,14 +1,13 @@
 package gui;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.ListCell;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import product.Product;
 import user.User;
 
+/**
+ * Describe how store user in cell of listview.
+ */
 public class UserListCell extends ListCell<User> {
     private HBox content;
     private Text name;

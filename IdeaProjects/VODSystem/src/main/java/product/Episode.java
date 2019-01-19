@@ -7,6 +7,9 @@ import uk.co.jemos.podam.common.PodamStrategyValue;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Stores information about actor
+ */
 class Episode implements Serializable {
     @PodamStrategyValue(DateStrategy.class)
     private Date startDate;

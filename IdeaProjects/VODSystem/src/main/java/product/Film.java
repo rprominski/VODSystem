@@ -4,6 +4,9 @@ import uk.co.jemos.podam.common.PodamIntValue;
 
 import java.util.ArrayList;
 
+/**
+ * Stores information about Film
+ */
 public class Film extends WatchableObject {
     private ArrayList<String> trailers;
     @PodamIntValue(minValue = 30,maxValue = 60)

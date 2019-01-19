@@ -16,6 +16,9 @@ import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+/**
+ * Control behaviour of panel where you can change price of product.
+ */
 public class ProductPricePanelController implements Initializable{
     @FXML
     private Button save;
@@ -26,6 +29,11 @@ public class ProductPricePanelController implements Initializable{
     @FXML
     private ListView<Product> products;
 
+    /**
+     * Sets type of information displaying in list in panel.
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         products.setCellFactory(new Callback<ListView<Product>, ListCell<Product>>() {
@@ -47,6 +55,10 @@ public class ProductPricePanelController implements Initializable{
         }
         this.products.setItems(products);
     }
+
+    /**
+     * Updates prices which was set by user.
+     */
     @FXML
     void updatePrice() {
         Product p = products.getSelectionModel().getSelectedItem();

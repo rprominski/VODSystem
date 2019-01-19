@@ -10,14 +10,23 @@ import uk.co.jemos.podam.common.PodamExclude;
 
 import java.util.*;
 
+/**
+ * Stores information of client and his behaviour.
+ */
 public class Client extends User implements Runnable{
     private String creditCardNumber;
     private Subscription subscription;
     @PodamExclude
     private Date dateOfBirth;
     @PodamCollection(nbrElements = 0)
+    /**
+     * Ids of bought products
+     */
     private Set<Integer> boughtProductsId;
 
+    /**
+     * Describe how simulated process of buying should work.
+     */
     public void buyProduct() {
         Random random = new Random();
         if(Math.abs(random.nextInt()) % 5 != 0 && boughtProductsId.size() != 0 ||

@@ -11,6 +11,9 @@ import simulation.Simulator;
 
 import java.util.Map;
 
+/**
+ * ListView which can stores products.
+ */
 public class ProductList extends ListView<Product> {
     public ProductList() {
         super();
@@ -23,6 +26,9 @@ public class ProductList extends ListView<Product> {
         });
     }
 
+    /**
+     *  Updates the products in list.
+     */
     public void update() {
         setItems(getProducts());
     }

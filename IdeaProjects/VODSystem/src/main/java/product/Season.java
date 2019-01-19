@@ -2,6 +2,9 @@ package product;
 
 import java.io.Serializable;
 
+/**
+ * Stores information about seasons.
+ */
 public class Season implements Serializable {
     private int number;
 

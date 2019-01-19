@@ -1,7 +1,9 @@
 package product;
 
 import java.util.List;
-
+/**
+ * Stores information shared by products.
+ */
 public abstract class WatchableObject extends Product {
     private Genre genre;
     private List<Actor> actors;
